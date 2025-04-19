@@ -1,0 +1,92 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" rx="10" ry="10"/>
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">Recipe AI Generator - Workflow Diagram</text>
+  
+  <!-- Start -->
+  <ellipse cx="400" cy="100" rx="80" ry="40" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+  <text x="400" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#1565c0">Start</text>
+  
+  <!-- Input -->
+  <rect x="300" y="170" width="200" height="60" rx="10" ry="10" fill="#e0f7fa" stroke="#00838f" stroke-width="2"/>
+  <text x="400" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#00838f">Enter Ingredients</text>
+  <text x="400" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#00838f">& Preferences</text>
+  
+  <!-- Process -->
+  <rect x="300" y="260" width="200" height="60" rx="10" ry="10" fill="#ede7f6" stroke="#4527a0" stroke-width="2"/>
+  <text x="400" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#4527a0">Generate Recipe</text>
+  <text x="400" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4527a0">(Gemini AI)</text>
+  
+  <!-- Nutrition -->
+  <rect x="300" y="350" width="200" height="50" rx="10" ry="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="400" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#e65100">Analyze Nutrition</text>
+  
+  <!-- Diamond - Cache Check -->
+  <polygon points="400,430 450,470 400,510 350,470" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="400" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#2e7d32">In Cache?</text>
+  
+  <!-- Use Cache -->
+  <rect x="180" y="450" width="120" height="40" rx="10" ry="10" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+  <text x="240" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#388e3c">Use Cache</text>
+  
+  <!-- Diamond - API Check -->
+  <polygon points="520,430 570,470 520,510 470,470" fill="#ffecb3" stroke="#ff8f00" stroke-width="2"/>
+  <text x="520" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#ff8f00">API Available?</text>
+  
+  <!-- Use API -->
+  <rect x="600" y="430" width="120" height="40" rx="10" ry="10" fill="#ffccbc" stroke="#dd2c00" stroke-width="2"/>
+  <text x="660" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#dd2c00">Query API</text>
+  
+  <!-- Use Fallback -->
+  <rect x="600" y="500" width="120" height="40" rx="10" ry="10" fill="#ffe0b2" stroke="#ef6c00" stroke-width="2"/>
+  <text x="660" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#ef6c00">Use Fallback</text>
+  
+  <!-- Calculate -->
+  <rect x="300" y="540" width="200" height="40" rx="10" ry="10" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+  <text x="400" y="565" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#8e24aa">Calculate Nutrition</text>
+  
+  <!-- Arrows -->
+  <!-- Start to Input -->
+  <path d="M 400 140 L 400 170" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Input to Process -->
+  <path d="M 400 230 L 400 260" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Process to Nutrition -->
+  <path d="M 400 320 L 400 350" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Nutrition to Cache Check -->
+  <path d="M 400 400 L 400 430" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Cache Yes -->
+  <path d="M 350 470 L 300 470" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="340" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666">Yes</text>
+  
+  <!-- Cache No -->
+  <path d="M 450 470 L 470 470" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="460" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666">No</text>
+  
+  <!-- API Yes -->
+  <path d="M 570 470 L 600 450" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="580" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666">Yes</text>
+  
+  <!-- API No -->
+  <path d="M 520 510 L 520 520 L 600 520" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="520" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666">No</text>
+  
+  <!-- Use Cache to Calculate -->
+  <path d="M 240 490 L 240 560 L 300 560" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Use API to Calculate -->
+  <path d="M 660 470 L 660 560 L 500 560" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Use Fallback to Calculate -->
+  <path d="M 600 520 L 500 560" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow Definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

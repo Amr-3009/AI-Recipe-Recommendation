@@ -1,0 +1,87 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8f9fa" rx="10" ry="10"/>
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">Recipe AI Generator - System Architecture</text>
+  
+  <!-- User Input -->
+  <rect x="50" y="100" width="140" height="60" rx="10" ry="10" fill="#e0f7fa" stroke="#00838f" stroke-width="2"/>
+  <text x="120" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#00838f">User Input</text>
+  
+  <!-- Ingredient Processing -->
+  <rect x="50" y="220" width="140" height="60" rx="10" ry="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="120" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#2e7d32">Ingredient Processing</text>
+  
+  <!-- Recipe Generation Box -->
+  <rect x="290" y="100" width="170" height="70" rx="10" ry="10" fill="#ede7f6" stroke="#4527a0" stroke-width="2"/>
+  <text x="375" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4527a0">Recipe Generation</text>
+  <text x="375" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4527a0">(Gemini AI)</text>
+  
+  <!-- Raw Recipe -->
+  <rect x="290" y="220" width="170" height="60" rx="10" ry="10" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2"/>
+  <text x="375" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#6a1b9a">Raw Recipe</text>
+  
+  <!-- Nutrition Analysis -->
+  <rect x="290" y="340" width="170" height="60" rx="10" ry="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="375" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#e65100">Nutrition Analysis</text>
+  
+  <!-- Nutrition Data Sources -->
+  <rect x="530" y="260" width="120" height="50" rx="10" ry="10" fill="#ffecb3" stroke="#ff8f00" stroke-width="2"/>
+  <text x="590" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#ff8f00">Cache</text>
+  
+  <rect x="530" y="340" width="120" height="50" rx="10" ry="10" fill="#ffccbc" stroke="#dd2c00" stroke-width="2"/>
+  <text x="590" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#dd2c00">Edamam API</text>
+  
+  <rect x="530" y="420" width="120" height="50" rx="10" ry="10" fill="#ffecb3" stroke="#ff8f00" stroke-width="2"/>
+  <text x="590" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#ff8f00">Fallback Data</text>
+  
+  <!-- Recipe Formatting -->
+  <rect x="530" y="100" width="120" height="60" rx="10" ry="10" fill="#e1f5fe" stroke="#0277bd" stroke-width="2"/>
+  <text x="590" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#0277bd">Recipe</text>
+  <text x="590" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#0277bd">Formatting</text>
+  
+  <!-- Nutrition Calculation -->
+  <rect x="530" y="180" width="120" height="60" rx="10" ry="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="590" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#2e7d32">Nutrition</text>
+  <text x="590" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#2e7d32">Calculation</text>
+  
+  <!-- Final Output -->
+  <rect x="700" y="140" width="80" height="180" rx="10" ry="10" fill="#bbdefb" stroke="#1565c0" stroke-width="3"/>
+  <text x="740" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1565c0" transform="rotate(90 740 230)">FINAL OUTPUT</text>
+  
+  <!-- Arrows -->
+  <!-- User Input to Ingredient Processing -->
+  <path d="M 120 160 L 120 220" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Ingredient Processing to Recipe Generation -->
+  <path d="M 190 250 L 290 135" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Recipe Generation to Raw Recipe -->
+  <path d="M 375 170 L 375 220" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Raw Recipe to Nutrition Analysis -->
+  <path d="M 375 280 L 375 340" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Raw Recipe to Recipe Formatting -->
+  <path d="M 460 250 L 530 130" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Nutrition Analysis to Nutrition Data Sources -->
+  <path d="M 460 370 L 530 285" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 460 370 L 530 370" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 460 370 L 530 445" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Nutrition Data to Nutrition Calculation -->
+  <path d="M 590 260 L 590 240" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Recipe Formatting to Final Output -->
+  <path d="M 650 130 L 700 230" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Nutrition Calculation to Final Output -->
+  <path d="M 650 210 L 700 230" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow Definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+</svg>
