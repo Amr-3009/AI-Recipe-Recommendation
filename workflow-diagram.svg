@@ -1,3 +1,423 @@
+Ohara
+amr_os
+Invisible
+
+Ohara — 09-Apr-25 6:52 PM
+import requests
+
+Example function to fetch nutritional information
+def get_nutritional_info(ingredients):
+    api_url = "https://api.edamam.com/api/nutrition-data"
+    params = {
+        'app_id': 'your_app_id',
+        'app_key': 'your_app_key',
+        'ingr': ingredients
+    }
+    response = requests.get(api_url, params=params)
+    return response.json()
+
+Fetch nutritional info for the ingredients
+nutrition_data = get_nutritional_info("chicken, broccoli, garlic")
+print(nutrition_data)
+M.o_Ashraf — 09-Apr-25 6:55 PM
+def get_nutrition(ingredients):
+    api_url = "https://api.edamam.com/api/nutrition-data"
+    params = {
+        "app_id": UserSecretsClient().get_secret("EDAMAM_APP_ID"),
+        "app_key": UserSecretsClient().get_secret("EDAMAM_APP_KEY"),
+        "ingr": ",".join(ingredients)
+    }
+    return requests.get(api_url, params=params).json()
+
+nutrition = get_nutrition(recipe["ingredients"])
+M.o_Ashraf — 09-Apr-25 7:22 PM
+def simplify_nutrition(api_response):
+    simplified = {
+        "calories": api_response.get("calories", 0),
+        "nutrients": {
+            "Protein": {
+                "amount": api_response["totalNutrients"]["PROCNT_100g"]["quantity"],
+                "unit": "g"
+            },
+
+        }
+    }
+    return simplified
+
+nutrition_data = response.json()
+clean_data = simplify_nutrition(nutrition_data)
+print(clean_data)
+Ohara — 09-Apr-25 7:27 PM
+import google.generativeai as genai
+
+ingredients = "pasta, cheese, onion"
+prompt = f"Create a recipe for 1 serving using the following ingredients: {ingredients}"
+
+class RecipeJSON(typing.TypedDict):
+    recipe_name: str
+    ingredients_ai: list[str]
+    instructions: str
+
+response = client.models.generate_content(
+    model = "gemini-2.0-flash",
+    config = types.GenerateContentConfig(
+        response_mime_type = "application/json",
+        response_schema = RecipeJSON,
+    ),
+    contents=prompt
+)
+
+print(response.text)
+
+def get_nutritional_info(ingredients):
+    api_url = "https://api.edamam.com/api/nutrition-data"
+    params = {
+        "app_id": UserSecretsClient().get_secret("EDAMAM_APP_ID"),
+        "app_key": UserSecretsClient().get_secret("EDAMAM_APP_KEY"),
+        "ingr": ingredients_ai
+    }
+    response = requests.get(api_url, params=params)
+    return response.json()
+
+#nutrition = get_nutritional_info(RecipeJSON["ingredients"])
+
+get_nutritional_info(ingredients)
+M.o_Ashraf — 09-Apr-25 7:29 PM
+-------------------------------------------------------------------------------
+def get_nutritional_info(ingredients_list):
+    """Fetch nutrition data and return a cleaned format."""
+    api_url = "https://api.edamam.com/api/nutrition-data"
+    params = {
+        "app_id": UserSecretsClient().get_secret("EDAMAM_APP_ID"),
+        "app_key": UserSecretsClient().get_secret("EDAMAM_APP_KEY"),
+        "ingr": ", ".join(ingredients_list)  # Convert list to string
+    }
+    raw_data = requests.get(api_url, params=params).json()
+
+Simplify the response
+    simplified = {
+        "calories": raw_data.get("calories", 0),
+        "nutrients": {
+            "Protein": {
+                "amount": raw_data["totalNutrients"]["PROCNT"]["quantity"],
+                "unit": raw_data["totalNutrients"]["PROCNT"]["unit"]
+            },
+            "Fat": {
+                "amount": raw_data["totalNutrients"]["FAT"]["quantity"],
+                "unit": raw_data["totalNutrients"]["FAT"]["unit"]
+            },
+            "Carbs": {
+                "amount": raw_data["totalNutrients"]["CHOCDF"]["quantity"],
+                "unit": raw_data["totalNutrients"]["CHOCDF"]["unit"]
+            }
+        }
+    }
+    return simplified
+
+Step 3: Get nutrition for the AI-suggested ingredients
+nutrition = get_nutritional_info(recipe["ingredients_ai"])
+print("\nNutritional Info (Simplified):")
+print(json.dumps(nutrition, indent=2))
+
+Optional: Pretty-print with emojis
+def print_pretty_nutrition(data):
+    print(f"\n🍽️  Nutrition for 1 Serving:")
+    print(f"🔥 Calories: {data['calories']}")
+    for name, info in data["nutrients"].items():
+        print(f"⚡ {name}: {info['amount']}{info['unit']}")
+
+print_pretty_nutrition(nutrition)
+Image
+Image
+Ohara — 09-Apr-25 7:37 PM
+import google.generativeai as genai
+
+ingredients = "pasta, cheese, onion"
+prompt = f"Create a recipe for 1 serving using the following ingredients: {ingredients}"
+
+class RecipeJSON(typing.TypedDict):
+    recipe_name: str
+    ingredients: list[str]
+    instructions: str
+
+response = client.models.generate_content(
+    model = "gemini-2.0-flash",
+    config = types.GenerateContentConfig(
+        response_mime_type = "application/json",
+        response_schema = RecipeJSON,
+    ),
+    contents=prompt
+)
+
+print(response.text)
+
+def get_nutritional_info(ingredients):
+    api_url = "https://api.edamam.com/api/nutrition-data"
+    params = {
+        "app_id": UserSecretsClient().get_secret("EDAMAM_APP_ID"),
+        "app_key": UserSecretsClient().get_secret("EDAMAM_APP_KEY"),
+        "ingr": ingredients
+    }
+    response = requests.get(api_url, params=params)
+    return response.json()
+
+#nutrition = get_nutritional_info(RecipeJSON["ingredients"])
+
+#get_nutritional_info("pasta, cheese, onion")
+M.o_Ashraf — 09-Apr-25 7:39 PM
+prompt = """
+create a detailed recipe using the given ingredients {', '.join(user_ingredients)}.
+For each ingredient, suggest appropriate quantities for 1 serving.
+
+Output in strict JSON format with:
+'recipe_name'
+'ingredients': List of strings with quantities (e.g., "200g pasta")
+'instructions'
+""" 
+Ohara — 09-Apr-25 8:27 PM
+import google.generativeai as genai
+
+ingredients = "pasta, cheese, onion"
+prompt = f"Create a recipe for 1 serving using the following ingredients: {ingredients}"
+
+class RecipeJSON(typing.TypedDict):
+    recipe_name: str
+    ingredients: list[str]
+    instructions: str
+
+response = client.models.generate_content(
+    model = "gemini-2.0-flash",
+    config = types.GenerateContentConfig(
+        response_mime_type = "application/json",
+        response_schema = RecipeJSON,
+    ),
+    contents=prompt
+)
+
+recipe_data = json.loads(response.text)
+ingredients_list = recipe_data['ingredients']
+
+def get_nutritional_info(ingredients):
+    api_url = "https://api.edamam.com/api/nutrition-data"
+    params = {
+        "app_id": UserSecretsClient().get_secret("EDAMAM_APP_ID"),
+        "app_key": UserSecretsClient().get_secret("EDAMAM_APP_KEY"),
+        "ingr": ingredients
+    }
+    response = requests.get(api_url, params=params)
+    return response.json()
+
+#nutrition = get_nutritional_info(RecipeJSON["ingredients"])
+
+get_nutritional_info(ingredients_list)
+Ohara — 09-Apr-25 9:28 PM
+Image
+Ohara — 10-Apr-25 5:25 PM
+ingredients = "meat, cheese, potato"
+prompt = f"Create a recipe for 1 serving using the following ingredients: {ingredients}"
+
+class RecipeJSON(typing.TypedDict):
+    recipe_name: str
+    ingredients: List[str]
+    instructions: str
+
+response = client.models.generate_content(
+    model = "gemini-2.0-flash",
+    config = types.GenerateContentConfig(
+        response_mime_type = "application/json",
+        response_schema = RecipeJSON,
+    ),
+    contents=prompt
+)
+
+recipe_data = json.loads(response.text)
+print(recipe_data) 
+ingredients_list = recipe_data['ingredients']
+#print(ingredients_list)
+#ingredients_str = ",".join(map(str, ingredients_list))
+#print(ingredients_str)
+
+def get_nutritional_info(ingredients: list[str]) -> str:
+    api_url = "https://api.edamam.com/api/nutrition-data"
+    full_nutrient_data = []
+
+    for ingredient in ingredients:
+        params = {
+            "app_id": UserSecretsClient().get_secret("EDAMAM_APP_ID"),
+            "app_key": UserSecretsClient().get_secret("EDAMAM_APP_KEY"),
+            "ingr": ingredient
+        }
+        response = requests.get(api_url, params=params)
+        if response.status_code != 200:
+            full_nutrient_data.append(f"## {ingredient}: Error fetching data")
+            continue
+
+        data = response.json()
+        try:
+            parsed = data['ingredients'][0]['parsed'][0]
+            nutrients = parsed.get('nutrients', {})
+            readable_nutrients = [f"- {nutrient['label']}: {nutrient['quantity']:.2f} {nutrient['unit']}"
+                                  for nutrient in nutrients.values()]
+            result = f"## {ingredient}:\n" + "\n".join(readable_nutrients)
+        except (KeyError, IndexError):
+            result = f"## {ingredient}:\nNo detailed nutritional info found."
+
+        full_nutrient_data.append(result) 
+
+    markdown_text = "\n\n".join(full_nutrient_data)
+    return display(Markdown(markdown_text))
+
+
+#get_nutritional_info(ingredients_list)
+M.o_Ashraf — 10-Apr-25 5:33 PM
+----------------------------------
+Image
+nutrition_tool = genai.protos.Tool(
+    function_declarations=[
+        {
+            "name": "get_nutritionalinfo",
+            "description": "Fetch nutritional information for recipe ingredients",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "ingredients": {
+                        "type": "ARRAY",
+                        "items": {"type": "STRING"},
+                        "description": "List of ingredients with quantities"
+                    }
+                },
+                "required": ["ingredients"]
+            }
+        }
+    ]
+)
+import google.generativeai as genai
+import typing
+import requests
+import json
+from kaggle_secrets import UserSecretsClient
+from typing import List, TypedDict
+from IPython.display import Markdown, display
+Image
+M.o_Ashraf — 10-Apr-25 5:40 PM
+7bb
+import google.generativeai as genai
+import typing
+import requests
+import json
+from kaggle_secrets import UserSecretsClient
+from typing import List, TypedDict
+Expand
+message.txt
+4 KB
+import google.generativeai as genai
+from google.generativeai.types import Tool  # Correct import path
+import requests
+import json
+from kaggle_secrets import UserSecretsClient
+from IPython.display import Markdown, display
+Ohara — 10-Apr-25 5:52 PM
+app id: b3b99bdb 
+app key: d55c6b064c19f74adcbcc23811ae2d8d
+M.o_Ashraf — 10-Apr-25 7:16 PM
+y3m
+import google.generativeai as genai
+import requests
+import json
+from kaggle_secrets import UserSecretsClient
+from IPython.display import Markdown, display
+Expand
+message.txt
+3 KB
+Image
+M.o_Ashraf — 11-Apr-25 3:22 PM
+Attachment file type: unknown
+recipe-ai.ipynb
+23.88 KB
+Ohara — 11-Apr-25 8:45 PM
+Fuck you
+Ohara — 11-Apr-25 8:58 PM
+GIF
+Ohara — 11-Apr-25 9:45 PM
+fuck you
+GIF
+Ohara — 12-Apr-25 5:19 PM
+Image
+Ohara — 12-Apr-25 8:23 PM
+Image
+Ohara — 12-Apr-25 11:31 PM
+Image
+Image
+Image
+??
+Image
+Ohara — 12-Apr-25 11:40 PM
+GIF
+M.o_Ashraf — 14-Apr-25 12:46 AM
+tsb7 3la 5er
+klmny wnta gy  insha'alah
+Ohara — 15-Apr-25 12:30 AM
+Image
+Ohara — 15-Apr-25 9:18 PM
+Image
+Image
+Image
+Ohara — 15-Apr-25 10:35 PM
+Forwarded
+M.o_Ashraf — 15-Apr-25 11:05 PM
+ybnyyyyyyyyyyyyyyy
+rooooo7t feeeeeeen
+Ohara — 15-Apr-25 11:06 PM
+Tl3t 3l srer
+T3ban
+M.o_Ashraf — 17-Apr-25 1:44 AM
+23rd 3leh yegy m3aya ?
+Ohara — 17-Apr-25 1:44 AM
+ahh
+M.o_Ashraf — 17-Apr-25 1:44 AM
+tyb
+Ohara — 17-Apr-25 4:52 PM
+Attachment file type: unknown
+recipe-ai_final-draft_pt1.ipynb
+125.64 KB
+Ohara — 4:58 PM
+1STANNIVERSARY
+EVERFLOWING
+WITHYOU
+wuwa
+M.o_Ashraf — 7:15 PM
+# Recipe AI Generator Documentation
+
+## 📋 Project Overview
+The Recipe AI Generator is a Kaggle notebook that creates personalized recipes based on user-provided ingredients and dietary preferences. The system leverages:
+
+- **Google's Gemini AI** for intelligent recipe generation
+Expand
+recipe-ai-generator-documentation-complete.md
+6 KB
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8f9fa" rx="10" ry="10"/>
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">Recipe AI Generator - System Architecture</text>
+  
+  <!-- User Input -->
+Expand
+system-architecture-diagram.svg
+6 KB
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" rx="10" ry="10"/>
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">Recipe AI Generator - Workflow Diagram</text>
+  
+  <!-- Start -->
+Expand
+workflow-diagram.svg
+6 KB
+Image
+Attachment file type: unknown
+ai-recipe-genrator.ipynb
+32.48 KB
+﻿
 <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
   <!-- Background -->
   <rect width="800" height="600" fill="#f8f9fa" rx="10" ry="10"/>
@@ -90,3 +510,5 @@
     </marker>
   </defs>
 </svg>
+workflow-diagram.svg
+6 KB
